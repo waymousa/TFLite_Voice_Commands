@@ -126,8 +126,8 @@ CONFIG_PARTITION_TABLE_MD5=y
 #
 # AWS IoT EduKit Configuration
 #
-CONFIG_WIFI_SSID=""
-CONFIG_WIFI_PASSWORD=""
+CONFIG_WIFI_SSID="clarmouth-wireless-2"
+CONFIG_WIFI_PASSWORD="Piaggio!2"
 # end of AWS IoT EduKit Configuration
 
 #

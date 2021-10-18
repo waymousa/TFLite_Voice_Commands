@@ -102,6 +102,6 @@ void ui_init() {
     lv_textarea_set_max_length(out_txtarea, MAX_TEXTAREA_LENGTH);
     lv_textarea_set_text_sel(out_txtarea, false);
     lv_textarea_set_cursor_hidden(out_txtarea, true);
-    lv_textarea_set_text(out_txtarea, "Starting Cloud Connected Blinky\n");
+    lv_textarea_set_text(out_txtarea, "Starting Tensorflow keyword detection.\n");
     xSemaphoreGive(xGuiSemaphore);
 }

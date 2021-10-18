@@ -13,18 +13,41 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
+//#include <string.h>
+
 #include "command_responder.h"
-#include "ui.h"
+
+extern "C" {
+  #include "ui.h"
+}
+
+//#include "../../includes/ui.h"
 
 // The default implementation writes out the name of the recognized command
 // to the error console. Real applications will want to take some custom
 // action instead, and should implement their own versions of this function.
 void RespondToCommand(tflite::ErrorReporter* error_reporter,
                       int32_t current_time, const char* found_command,
-                      uint8_t score, bool is_new_command) {
+                      uint8_t score, bool is_new_command) {  
+
+  //ui_init();
+
   if (is_new_command) {
-    //ui_textarea_add("Unable to set Auto Reconnect to true\n", NULL, 0);
     TF_LITE_REPORT_ERROR(error_reporter, "Heard %s (%d) @%dms", found_command,
                          score, current_time);
   }
+
+  const char* yes = "yes";
+  const char* no = "no";
+
+  if (found_command == yes){
+    //char* data = (char*) "Heard yes.\n";
+    ui_textarea_add("Heard yes.\n", NULL, 0);
+  }
+
+  if (found_command == no){
+  //  char* data = (char*) "Heard no.\n";
+    ui_textarea_add("Heard no.\n", NULL, 0);
+  }
+
 }
