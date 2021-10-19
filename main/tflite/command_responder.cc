@@ -21,7 +21,9 @@ extern "C" {
   #include "ui.h"
 }
 
-//#include "../../includes/ui.h"
+extern "C" {
+    #include "respond.h"
+}
 
 // The default implementation writes out the name of the recognized command
 // to the error console. Real applications will want to take some custom
@@ -30,24 +32,24 @@ void RespondToCommand(tflite::ErrorReporter* error_reporter,
                       int32_t current_time, const char* found_command,
                       uint8_t score, bool is_new_command) {  
 
-  //ui_init();
+  const char* yes = "yes";
+  const char* no = "no";
+  const char* unknown = "unknown";
 
   if (is_new_command) {
     TF_LITE_REPORT_ERROR(error_reporter, "Heard %s (%d) @%dms", found_command,
                          score, current_time);
+    if (found_command == yes){
+      ui_textarea_add("Heard yes.\n", NULL, 0);
+      respond("y");
+    } else if (found_command == no){
+      ui_textarea_add("Heard no.\n", NULL, 0);
+      respond("n");
+    } else if (found_command == unknown){
+      ui_textarea_add("Heard unknown.\n", NULL, 0);
+      respond("u");
+    } else {
+      ui_textarea_add("Heard silence.\n", NULL, 0);
+    }    
   }
-
-  const char* yes = "yes";
-  const char* no = "no";
-
-  if (found_command == yes){
-    //char* data = (char*) "Heard yes.\n";
-    ui_textarea_add("Heard yes.\n", NULL, 0);
-  }
-
-  if (found_command == no){
-  //  char* data = (char*) "Heard no.\n";
-    ui_textarea_add("Heard no.\n", NULL, 0);
-  }
-
 }

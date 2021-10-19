@@ -33,6 +33,10 @@ limitations under the License.
 #include "ringbuf.h"
 #include "../micro_features/micro_model_settings.h"
 
+extern "C" {
+  #include "ui.h"
+}
+
 using namespace std;
 
 static const char* TAG = "TF_LITE_AUDIO_PROVIDER";
@@ -153,6 +157,7 @@ TfLiteStatus InitAudioRecording(tflite::ErrorReporter* error_reporter) {
   while (!g_latest_audio_timestamp) {
   }
   ESP_LOGI(TAG, "Audio Recording started");
+  ui_textarea_add("Audio Recording started.\n", NULL, 0);
   return kTfLiteOk;
 }
 

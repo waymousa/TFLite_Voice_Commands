@@ -26,6 +26,7 @@ set(COMPONENT_SRCS
     "tflite/micro_features/no_micro_features_data.cc"
     "tflite/micro_features/yes_micro_features_data.cc"
     "sd.c"
+    "respond.c"
 )
 set(COMPONENT_ADD_INCLUDEDIRS "." "./includes" "./tflite/micro_features" "./tflite")
 set(COMPONENT_REQUIRES 

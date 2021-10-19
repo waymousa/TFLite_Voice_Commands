@@ -1,7 +1,7 @@
 /*
  * AWS IoT EduKit - Core2 for AWS IoT EduKit
  * Cloud Connected Blinky v1.3.0
- * blink.h
+ * blink.c
  * 
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
@@ -23,6 +23,37 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-TaskHandle_t xBlink;
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+#include "core2forAWS.h"
+#include "respond.h"
 
-void blink_task(void *arg);
+static const char *TAG = "Respond";
+
+void respond(char *response){
+
+    const char* yes = "y";
+    const char* no = "n";
+    const char* unknown = "u";
+
+    Core2ForAWS_Sk6812_Clear();
+    Core2ForAWS_Sk6812_Show();
+    if (response == yes){
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_LEFT, 0x00ff00);
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_RIGHT, 0x000000);
+        Core2ForAWS_Sk6812_Show();
+    } else if (response == no){
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_LEFT, 0x000000);
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_RIGHT, 0xff0000);
+        Core2ForAWS_Sk6812_Show();
+    } else if (response == unknown){
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_LEFT, 0xffffff);
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_RIGHT, 0xffffff);
+        Core2ForAWS_Sk6812_Show();
+    } else {        
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_LEFT, 0x000000);
+        Core2ForAWS_Sk6812_SetSideColor(SK6812_SIDE_RIGHT, 0x000000);
+        Core2ForAWS_Sk6812_Show();
+    }
+}
