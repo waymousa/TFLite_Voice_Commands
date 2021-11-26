@@ -19,15 +19,15 @@
 #include "core2forAWS.h"
 
 #include "wifi.h"
-#include "blink.h"
+//#include "blink.h"
 #include "ui.h"
 
 #include "tflite_main.h"
 //#include "mpu.h"
-#include "sd.h"
-#include "sntp_sync.h"
+//#include "sd.h"
+//#include "sntp_sync.h"
 //#include "data_batch.h"
-#include "mic.h"
+//#include "mic.h"
 //#include "ota_task.h"
 
 //#include "iotex_task.h"
@@ -225,13 +225,15 @@ void app_main()
     
     //xTaskCreatePinnedToCore(&mpu_task, "mpu_task", 4096 * 2, NULL, 5, NULL, 1);
     
-    //xTaskCreatePinnedToCore(&sntp_task, "sntp_task", 4096 * 2, NULL, 5, NULL, 1);
+    // xTaskCreatePinnedToCore(&sntp_task, "sntp_task", 4096 * 2, NULL, 5, NULL, 1);
 
     // xTaskCreatePinnedToCore(&ota_task, "ota_task", 4096 * 2, NULL, 5, NULL, 1);
 
-    xTaskCreatePinnedToCore(&app_main_tflite, "tflite_main_task", 1024 * 32, NULL, 8, NULL, 1);
+    // xTaskCreatePinnedToCore(&app_main_tflite, "tflite_main_task", 1024 * 32, NULL, 8, NULL, 1);
 
-    // xTaskCreatePinnedToCore(&aws_iot_task, "aws_iot_task", 4096 * 5, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(&aws_iot_task, "aws_iot_task", 4096 * 2, NULL, 1, NULL, 1);
+
+    xTaskCreatePinnedToCore((TaskFunction_t)&app_main_tflite, "tflite_main_task", 1024 * 32, NULL, 8, NULL,1);
 
     // xTaskCreatePinnedToCore(&blink_task, "blink_task", 4096 * 1, NULL, 2, &xBlink, 1);
 

@@ -10,9 +10,10 @@
 #include "main_functions.h"
 
 #include "wifi.h"
+#include "main.h"
 
 extern "C" void app_main_tflite(void) {
-  xEventGroupWaitBits(wifi_event_group, CONNECTED_BIT, false, true, portMAX_DELAY);
+  xEventGroupWaitBits(mqtt_event_group, CONNECTED_BIT, false, true, portMAX_DELAY);
   setup();
   while (true) {
     loop();
